@@ -1,0 +1,13 @@
+{
+    "name": "websys-forever/php-project-lvl1",
+    "description": "just training project \"Brain games\"",
+    "type": "library",
+    "authors": [
+        {
+            "name": "websys.forever",
+            "email": "websys.forever@gmail.com"
+        }
+    ],
+    "bin": ["bin/brain-games"],
+    "require": {}
+}
