@@ -1,0 +1,15 @@
+name: Check code
+on: push
+jobs:
+  check_code:
+    name: Check code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Check code by phpcs
+        id: phpcs
+        run: |
+          make install
+          make lint

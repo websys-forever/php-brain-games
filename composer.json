@@ -14,5 +14,14 @@
     },
     "autoload": {
         "files": ["src/Cli.php"]
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.5"
+    },
+    "scripts": {
+        "phpcs": "phpcs"
+    },
+    "scripts-descriptions": {
+        "phpcs": "Checks that the application code conforms to coding standard"
     }
 }
