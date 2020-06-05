@@ -3,7 +3,13 @@
 
 use function BrainGames\Cli\run;
 
-$autoloadPath = __DIR__ . '/../vendor/autoload.php';
-require_once $autoloadPath;
+$localAutoloadPath = __DIR__ . '/../vendor/autoload.php';
+$globalAutoloadPath = __DIR__ . '/../../../autoload.php';
+
+if (file_exists($globalAutoloadPath)) {
+    require_once $globalAutoloadPath;
+} else {
+    require_once $localAutoloadPath;
+}
 
 run();
