@@ -12,4 +12,4 @@ if (file_exists($globalAutoloadPath)) {
     require_once $localAutoloadPath;
 }
 
-run('Even');
+run('Calc');
