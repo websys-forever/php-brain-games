@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+use function BrainGames\Cli\run;
+
+$localAutoloadPath = __DIR__ . '/../vendor/autoload.php';
+$globalAutoloadPath = __DIR__ . '/../../../autoload.php';
+
+if (file_exists($globalAutoloadPath)) {
+    require_once $globalAutoloadPath;
+} else {
+    require_once $localAutoloadPath;
+}
+
+run('Nod');

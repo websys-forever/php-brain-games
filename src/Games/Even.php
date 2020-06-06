@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Even;
 
+use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+
 const GAME_DESCRIPTION = <<<MESSAGE
 Answer "yes" if the number is even, otherwise answer "no".\n
 MESSAGE;
-
-const RAND_MIN_NUMBER = 1;
-const RAND_MAX_NUMBER = 100;
 
 /**
  * Get game's description

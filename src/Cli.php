@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace BrainGames\Cli;
 
 use function Cli\{out, prompt};
+use const BrainGames\Common\{WIN_ANSWER_COUNT, CORRECT_ANSWER_MESSAGE};
 
-const WIN_ANSWER_COUNT = 3;
-const CORRECT_ANSWER_MESSAGE = "Correct!\n";
 
 /**
  * Run CLI application
