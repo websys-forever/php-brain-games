@@ -15,3 +15,7 @@ Game 'Even' example:
 Game 'Calculator' example:    
 
 [![asciicast](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs.svg)](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs)
+
+Game 'Nod' example:    
+
+[![asciicast](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh.svg)](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh)
