@@ -4,6 +4,14 @@
     
 **just training project "Brain games"**
 
-Intall and work example:    
+Intall example:    
 
-[![asciicast](https://asciinema.org/a/MEbb16TSYjxQ47fbeQffTBdbE.svg)](https://asciinema.org/a/MEbb16TSYjxQ47fbeQffTBdbE)
+[![asciicast](https://asciinema.org/a/yA9MaANqJXTQf00dSZNEmo3YY.svg)](https://asciinema.org/a/yA9MaANqJXTQf00dSZNEmo3YY)
+
+Game 'Even' example:    
+
+[![asciicast](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs.svg)](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs)    
+
+Game 'Calculator' example:    
+
+[![asciicast](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs.svg)](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs)
