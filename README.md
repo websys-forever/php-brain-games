@@ -23,3 +23,7 @@ Game 'Nod' example:
 Game 'Progression' example:    
 
 [![asciicast](https://asciinema.org/a/OKrGXAwuZ8j6auNM5GdyGbRuf.svg)](https://asciinema.org/a/OKrGXAwuZ8j6auNM5GdyGbRuf)
+
+Game 'Prime' example:    
+
+[![asciicast](https://asciinema.org/a/hugNxMv6I2U2OVvGyATP7M82c.svg)](https://asciinema.org/a/hugNxMv6I2U2OVvGyATP7M82c)
