@@ -68,3 +68,15 @@ function getRightAnswer(array $questionValues): int
 
     return $result;
 }
+
+/**
+ * Get question message
+ *
+ * @param $questionValues mixed question values
+ *
+ * @return string
+ */
+function getQuestionMessage($questionValues): string
+{
+    return implode(' ', $questionValues);
+}

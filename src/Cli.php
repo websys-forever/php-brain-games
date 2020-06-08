@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace BrainGames\Cli;
 
 use function Cli\{out, prompt};
-use const BrainGames\Common\{WIN_ANSWER_COUNT, CORRECT_ANSWER_MESSAGE};
 
+use const BrainGames\Common\{WIN_ANSWER_COUNT, CORRECT_ANSWER_MESSAGE};
 
 /**
  * Run CLI application
@@ -21,6 +21,7 @@ function run($gameName)
         $getDescription = "BrainGames\Games\\{$gameName}\getDescription";
         $getQuestionValues = "BrainGames\Games\\{$gameName}\getQuestionValues";
         $getRightAnswer = "BrainGames\Games\\{$gameName}\getRightAnswer";
+        $getQuestionMessage = "BrainGames\Games\\{$gameName}\getQuestionMessage";
 
         out("Welcome to the Brain Games!\n");
         out($getDescription());
@@ -28,7 +29,13 @@ function run($gameName)
         $userName = prompt("May I have your name?");
         out("Hello, {$userName}\n");
 
-        $result = processGame($userName, $getQuestionValues, $getRightAnswer);
+        $result = processGame(
+            $userName,
+            $getQuestionValues,
+            $getRightAnswer,
+            $getQuestionMessage
+        );
+
         out($result);
     } catch (\Throwable $e) {
         out("Error: {$e->getMessage()}\n");
@@ -39,21 +46,26 @@ function run($gameName)
 /**
  * Process game
  *
- * @param $userName          string user's name
- * @param $getQuestionValues string game's function which return question
- * @param $getRightAnswer    string game's function which return right answer
+ * @param $userName           string user's name
+ * @param $getQuestionValues  string game's function which return question
+ * @param $getRightAnswer     string game's function which return right answer
+ * @param $getQuestionMessage string question's message
  *
  * @return string
  */
-function processGame($userName, $getQuestionValues, $getRightAnswer)
-{
+function processGame(
+    $userName,
+    $getQuestionValues,
+    $getRightAnswer,
+    $getQuestionMessage
+) {
     $rightAnswersCount = 0;
     while ($rightAnswersCount < WIN_ANSWER_COUNT) {
         $questionValues = $getQuestionValues();
         $rightAnswer = $getRightAnswer($questionValues);
-        $questionString = getQuestionString($questionValues);
+        $questionMesage = $getQuestionMessage($questionValues);
 
-        $receivedAnswer = prompt("Question: {$questionString}");
+        $receivedAnswer = prompt("Question: {$questionMesage}");
 
         if ($rightAnswer == $receivedAnswer) {
             $rightAnswersCount += 1;
@@ -99,18 +111,4 @@ Congratulations, {$userName}!\n
 MESSAGE;
 
     return $message;
-}
-
-/**
- * Get question string
- *
- * @param $questionValues mixed question values
- *
- * @return string
- */
-function getQuestionString($questionValues): string
-{
-    return is_array($questionValues) ?
-        implode(' ', $questionValues)
-        : (string) $questionValues;
 }

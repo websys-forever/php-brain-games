@@ -57,3 +57,15 @@ function gcd(int $a, int $b): int
 {
     return ($a % $b) ? gcd($b, $a % $b) : abs($b);
 }
+
+/**
+ * Get question message
+ *
+ * @param $questionValues mixed question values
+ *
+ * @return string
+ */
+function getQuestionMessage($questionValues): string
+{
+    return implode(' ', $questionValues);
+}

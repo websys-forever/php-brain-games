@@ -41,3 +41,15 @@ function getRightAnswer(int $questionNumber): string
 {
     return ($questionNumber % 2) === 0 ? 'yes' : 'no';
 }
+
+/**
+ * Get question message
+ *
+ * @param $questionValue mixed question values
+ *
+ * @return string
+ */
+function getQuestionMessage($questionValue): string
+{
+    return (string) $questionValue;
+}
