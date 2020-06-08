@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace BrainGames\Games\Even;
+namespace BrainGames\Games\Prime;
 
 use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
-Answer "yes" if the number is even, otherwise answer "no".\n
+Answer "yes" if given number is prime. Otherwise answer "no".\n
 MESSAGE;
 
 /**
@@ -21,7 +21,7 @@ function getDescription(): string
 }
 
 /**
- * Get game's question
+ * Get random number
  *
  * @return int
  */
@@ -33,13 +33,13 @@ function getQuestionValues(): int
 /**
  * Get game's right answer
  *
- * @param int $questionNumber question's number
+ * @param int $questionNumber question's values
  *
  * @return string
  */
 function getRightAnswer(int $questionNumber): string
 {
-    return ($questionNumber % 2) === 0 ? 'yes' : 'no';
+    return isPrime($questionNumber) ? 'yes' : 'no';
 }
 
 /**
@@ -52,4 +52,32 @@ function getRightAnswer(int $questionNumber): string
 function getQuestionMessage($questionNumber): string
 {
     return (string) $questionNumber;
+}
+
+/**
+ * Check that number is prime
+ *
+ * @param $number int
+ *
+ * @return bool
+ */
+function isPrime(int $number): bool
+{
+    if ($number == 2) {
+        return true;
+    }
+    if ($number % 2 == 0) {
+        return false;
+    }
+
+    $i = 3;
+    $numberSquareRoot = (int) sqrt($number);
+    while ($i <= $numberSquareRoot) {
+        if ($number % $i == 0) {
+            return false;
+        }
+        $i += 2;
+    }
+
+    return true;
 }
