@@ -19,3 +19,7 @@ Game 'Calculator' example:
 Game 'Nod' example:    
 
 [![asciicast](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh.svg)](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh)
+
+Game 'Progression' example:    
+
+[![asciicast](https://asciinema.org/a/OKrGXAwuZ8j6auNM5GdyGbRuf.svg)](https://asciinema.org/a/OKrGXAwuZ8j6auNM5GdyGbRuf)
