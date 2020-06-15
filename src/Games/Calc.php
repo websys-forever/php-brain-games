@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace BrainGames\Games\Calc;
 
 use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+
 use function BrainGames\Cli\processGameFlow;
 
 const GAME_DESCRIPTION = <<<MESSAGE
