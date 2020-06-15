@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Calc;
 
-use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
-
 use function BrainGames\Cli\processGameFlow;
+
+use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
 What is the result of the expression?\n
