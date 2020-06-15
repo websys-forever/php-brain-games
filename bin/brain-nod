@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
 
-use function BrainGames\Cli\run;
+use function BrainGames\Games\Nod\run;
+use function cli\out;
 
 $localAutoloadPath = __DIR__ . '/../vendor/autoload.php';
 $globalAutoloadPath = __DIR__ . '/../../../autoload.php';
@@ -12,4 +13,9 @@ if (file_exists($globalAutoloadPath)) {
     require_once $localAutoloadPath;
 }
 
-run('Nod');
+try {
+    run();
+} catch (\Throwable $e) {
+    out("Error: {$e->getMessage()}\n");
+    return $e->getCode();
+}

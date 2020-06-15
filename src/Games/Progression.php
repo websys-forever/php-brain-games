@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Progression;
 
+use function BrainGames\Cli\processGameFlow;
 use const BrainGames\Common\{RAND_MIN_NUMBER};
 
 const RAND_MAX_NUMBER = 10;
@@ -14,28 +15,36 @@ What number is missing in the progression?\n
 MESSAGE;
 
 /**
- * Get game's description
+ * Run CLI application
  *
- * @return string
+ * @return void
  */
-function getDescription(): string
+function run()
 {
-    return GAME_DESCRIPTION;
-}
+    $questionValues = function (): array {
+        $progression = getProgression();
 
-/**
- * Get game's question
- *
- * @return array
- */
-function getQuestionValues(): array
-{
-    $progression = getProgression();
+        return [
+            'progression' => $progression,
+            'hidden_value_index' => array_rand($progression)
+        ];
+    };
 
-    return [
-        'progression' => $progression,
-        'hidden_value_index' => array_rand($progression)
-    ];
+    $rightAnswer = function (array $questionValues): int {
+        $hiddenValueIndex = $questionValues['hidden_value_index'];
+        $rightAnswer = $questionValues['progression'][$hiddenValueIndex];
+
+        return $rightAnswer;
+    };
+
+    $questionMessage = function ($questionValues): string {
+        $hiddenValueIndex = $questionValues['hidden_value_index'];
+        $questionValues['progression'][$hiddenValueIndex] = '..';
+
+        return implode(' ', $questionValues['progression']);
+    };
+
+    processGameFlow(GAME_DESCRIPTION, $questionValues, $rightAnswer, $questionMessage);
 }
 
 /**
@@ -55,34 +64,4 @@ function getProgression(): array
     }
 
     return $progression;
-}
-
-/**
- * Get game's right answer
- *
- * @param array $questionValues question's values
- *
- * @return int
- */
-function getRightAnswer(array $questionValues): int
-{
-    $hiddenValueIndex = $questionValues['hidden_value_index'];
-    $rightAnswer = $questionValues['progression'][$hiddenValueIndex];
-
-    return $rightAnswer;
-}
-
-/**
- * Get question message
- *
- * @param $questionValues mixed question values
- *
- * @return string
- */
-function getQuestionMessage($questionValues): string
-{
-    $hiddenValueIndex = $questionValues['hidden_value_index'];
-    $questionValues['progression'][$hiddenValueIndex] = '..';
-
-    return implode(' ', $questionValues['progression']);
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Prime;
 
+use function BrainGames\Cli\processGameFlow;
 use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
@@ -11,47 +12,25 @@ Answer "yes" if given number is prime. Otherwise answer "no".\n
 MESSAGE;
 
 /**
- * Get game's description
+ * Run CLI application
  *
- * @return string
+ * @return void
  */
-function getDescription(): string
+function run()
 {
-    return GAME_DESCRIPTION;
-}
+    $questionNumber = function (): int {
+        return rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+    };
 
-/**
- * Get random number
- *
- * @return int
- */
-function getQuestionValues(): int
-{
-    return rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-}
+    $rightAnswer = function (int $questionNumber): string {
+        return isPrime($questionNumber) ? 'yes' : 'no';
+    };
 
-/**
- * Get game's right answer
- *
- * @param int $questionNumber question's values
- *
- * @return string
- */
-function getRightAnswer(int $questionNumber): string
-{
-    return isPrime($questionNumber) ? 'yes' : 'no';
-}
+    $questionMessage = function ($questionNumber): string {
+        return (string) $questionNumber;
+    };
 
-/**
- * Get question message
- *
- * @param $questionNumber mixed question values
- *
- * @return string
- */
-function getQuestionMessage($questionNumber): string
-{
-    return (string) $questionNumber;
+    processGameFlow(GAME_DESCRIPTION, $questionNumber, $rightAnswer, $questionMessage);
 }
 
 /**

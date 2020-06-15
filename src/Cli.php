@@ -9,73 +9,45 @@ use function Cli\{out, prompt};
 use const BrainGames\Common\{WIN_ANSWER_COUNT, CORRECT_ANSWER_MESSAGE};
 
 /**
- * Run CLI application
+ * Process game flow
  *
- * @param $gameName games's name
+ * @param $getDescription     string game's description
+ * @param $getQuestionValues  mixed  get questions values
+ * @param $getRightAnswer     mixed  get right question's answer
+ * @param $getQuestionMessage string get question's message
  *
  * @return void
  */
-function run($gameName)
+function processGameFlow($getDescription, $getQuestionValues, $getRightAnswer, $getQuestionMessage)
 {
-    try {
-        $getDescription = "BrainGames\Games\\{$gameName}\getDescription";
-        $getQuestionValues = "BrainGames\Games\\{$gameName}\getQuestionValues";
-        $getRightAnswer = "BrainGames\Games\\{$gameName}\getRightAnswer";
-        $getQuestionMessage = "BrainGames\Games\\{$gameName}\getQuestionMessage";
+    out("Welcome to the Brain Games!\n");
+    out($getDescription);
 
-        out("Welcome to the Brain Games!\n");
-        out($getDescription());
+    $userName = prompt("May I have your name?");
+    out("Hello, {$userName}\n");
 
-        $userName = prompt("May I have your name?");
-        out("Hello, {$userName}\n");
-
-        $result = processGame(
-            $userName,
-            $getQuestionValues,
-            $getRightAnswer,
-            $getQuestionMessage
-        );
-
-        out($result);
-    } catch (\Throwable $e) {
-        out("Error: {$e->getMessage()}\n");
-        return $e->getCode();
-    }
-}
-
-/**
- * Process game
- *
- * @param $userName           string user's name
- * @param $getQuestionValues  string game's function which return question
- * @param $getRightAnswer     string game's function which return right answer
- * @param $getQuestionMessage string question's message
- *
- * @return string
- */
-function processGame(
-    $userName,
-    $getQuestionValues,
-    $getRightAnswer,
-    $getQuestionMessage
-) {
     $rightAnswersCount = 0;
-    while ($rightAnswersCount < WIN_ANSWER_COUNT) {
+    $errorAnswer = false;
+    while ($rightAnswersCount < WIN_ANSWER_COUNT && false === $errorAnswer) {
         $questionValues = $getQuestionValues();
         $rightAnswer = $getRightAnswer($questionValues);
-        $questionMesage = $getQuestionMessage($questionValues);
+        $questionMessage = $getQuestionMessage($questionValues);
 
-        $receivedAnswer = prompt("Question: {$questionMesage}");
+        $receivedAnswer = prompt("Question: {$questionMessage}");
 
         if ($rightAnswer == $receivedAnswer) {
             $rightAnswersCount += 1;
             out(CORRECT_ANSWER_MESSAGE);
         } else {
-            return getWrongAnswerMessage($userName, $rightAnswer, $receivedAnswer);
+            $errorAnswer = true;
         }
     }
 
-    return getWinMessage($userName);
+    $result = $errorAnswer ?
+        getWrongAnswerMessage($userName, $rightAnswer, $receivedAnswer)
+        : getWinMessage($userName);
+
+    out($result);
 }
 
 /**
