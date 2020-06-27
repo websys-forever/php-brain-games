@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace BrainGames\Games\Nod;
 
 use function BrainGames\Cli\processGameFlow;
+use function BrainGames\Games\Common\getGameData;
 
-use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
 Find the greatest common divisor of given numbers.\n
@@ -19,22 +20,24 @@ MESSAGE;
  */
 function run()
 {
-    $questionValues = function (): array {
+    $getQuestionValues = function (): array {
         return [
             'num1' => rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER),
             'num2' => rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER)
         ];
     };
 
-    $rightAnswer = function (array $questionValues): int {
+    $getRightAnswer = function (array $questionValues): int {
         return gcd($questionValues['num1'], $questionValues['num2']);
     };
 
-    $questionMessage = function ($questionValues): string {
+    $getQuestionMessage = function ($questionValues): string {
         return implode(' ', $questionValues);
     };
 
-    processGameFlow(GAME_DESCRIPTION, $questionValues, $rightAnswer, $questionMessage);
+    $gameData = getGameData($getQuestionValues, $getRightAnswer, $getQuestionMessage);
+
+    processGameFlow(GAME_DESCRIPTION, $gameData);
 }
 
 /**

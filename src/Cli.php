@@ -6,37 +6,32 @@ namespace BrainGames\Cli;
 
 use function Cli\{out, prompt};
 
-use const BrainGames\Common\{WIN_ANSWER_COUNT, CORRECT_ANSWER_MESSAGE};
+use const BrainGames\Games\Common\{GAME_STEPS_COUNT, CORRECT_ANSWER_MESSAGE};
 
 /**
  * Process game flow
  *
- * @param $getDescription     string game's description
- * @param $getQuestionValues  mixed  get questions values
- * @param $getRightAnswer     mixed  get right question's answer
- * @param $getQuestionMessage string get question's message
+ * @param $gameDescription string game's description
+ * @param $gameData        array game's data (questions messages and right answers)
  *
  * @return void
  */
-function processGameFlow($getDescription, $getQuestionValues, $getRightAnswer, $getQuestionMessage)
+function processGameFlow(string $gameDescription, array $gameData)
 {
     out("Welcome to the Brain Games!\n");
-    out($getDescription);
+    out($gameDescription);
 
     $userName = prompt("May I have your name?");
     out("Hello, {$userName}\n");
 
-    $rightAnswersCount = 0;
     $errorAnswer = false;
-    while ($rightAnswersCount < WIN_ANSWER_COUNT && false === $errorAnswer) {
-        $questionValues = $getQuestionValues();
-        $rightAnswer = $getRightAnswer($questionValues);
-        $questionMessage = $getQuestionMessage($questionValues);
+    $step = 0;
+    while ($step < GAME_STEPS_COUNT && false === $errorAnswer) {
+        $receivedAnswer = prompt("Question: {$gameData[$step]['question_message']}");
 
-        $receivedAnswer = prompt("Question: {$questionMessage}");
+        if ($gameData[$step]['right_answer'] == $receivedAnswer) {
+            ++$step;
 
-        if ($rightAnswer == $receivedAnswer) {
-            $rightAnswersCount += 1;
             out(CORRECT_ANSWER_MESSAGE);
         } else {
             $errorAnswer = true;
@@ -44,43 +39,9 @@ function processGameFlow($getDescription, $getQuestionValues, $getRightAnswer, $
     }
 
     $result = $errorAnswer ?
-        getWrongAnswerMessage($userName, $rightAnswer, $receivedAnswer)
-        : getWinMessage($userName);
+        "'{$receivedAnswer}' is wrong answer ;(. Correct answer was '{$gameData[$step]['right_answer']}'.
+ Let's try again, {$userName}!\n"
+        : "Congratulations, {$userName}!\n";
 
     out($result);
-}
-
-/**
- * Get wrong answer message
- *
- * @param $userName       string user's name
- * @param $needAnswer     string correct answer
- * @param $receivedAnswer string user's answer
- *
- * @return string
- */
-function getWrongAnswerMessage($userName, $needAnswer, $receivedAnswer): string
-{
-    $message = <<<MESSAGE
-'{$receivedAnswer}' is wrong answer ;(. Correct answer was '{$needAnswer}'.
-Let's try again, {$userName}!\n
-MESSAGE;
-
-    return $message;
-}
-
-/**
- * Get game win message
- *
- * @param $userName string user's name
- *
- * @return string
- */
-function getWinMessage($userName): string
-{
-    $message = <<<MESSAGE
-Congratulations, {$userName}!\n
-MESSAGE;
-
-    return $message;
 }

@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace BrainGames\Games\Prime;
 
 use function BrainGames\Cli\processGameFlow;
+use function BrainGames\Games\Common\getGameData;
 
-use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
 Answer "yes" if given number is prime. Otherwise answer "no".\n
@@ -19,19 +20,21 @@ MESSAGE;
  */
 function run()
 {
-    $questionNumber = function (): int {
+    $getQuestionNumber = function (): int {
         return rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
     };
 
-    $rightAnswer = function (int $questionNumber): string {
+    $getRightAnswer = function (int $questionNumber): string {
         return isPrime($questionNumber) ? 'yes' : 'no';
     };
 
-    $questionMessage = function ($questionNumber): string {
+    $getQuestionMessage = function ($questionNumber): string {
         return (string) $questionNumber;
     };
 
-    processGameFlow(GAME_DESCRIPTION, $questionNumber, $rightAnswer, $questionMessage);
+    $gameData = getGameData($getQuestionNumber, $getRightAnswer, $getQuestionMessage);
+
+    processGameFlow(GAME_DESCRIPTION, $gameData);
 }
 
 /**
@@ -43,6 +46,9 @@ function run()
  */
 function isPrime(int $number): bool
 {
+    if ($number < 2) {
+        return false;
+    }
     if ($number == 2) {
         return true;
     }

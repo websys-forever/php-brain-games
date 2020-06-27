@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace BrainGames\Games\Calc;
 
 use function BrainGames\Cli\processGameFlow;
+use function BrainGames\Games\Common\{getGameData};
 
-use const BrainGames\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
 
 const GAME_DESCRIPTION = <<<MESSAGE
 What is the result of the expression?\n
@@ -21,7 +22,7 @@ const OPERATIONS = ['+', '-', '*'];
  */
 function run()
 {
-    $questionValues = function (): array {
+    $getQuestionValues = function (): array {
         $num1 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
         $num2 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
         $randKey = array_rand(OPERATIONS);
@@ -34,7 +35,7 @@ function run()
         ];
     };
 
-    $rightAnswer = function (array $questionValues): int {
+    $getRightAnswer = function (array $questionValues): int {
         switch ($questionValues['operation']) {
             case '+':
                 $result = $questionValues['num1'] + $questionValues['num2'];
@@ -53,9 +54,11 @@ function run()
         return $result;
     };
 
-    $questionMessage = function ($questionValues): string {
+    $getQuestionMessage = function ($questionValues): string {
         return implode(' ', $questionValues);
     };
 
-    processGameFlow(GAME_DESCRIPTION, $questionValues, $rightAnswer, $questionMessage);
+    $gameData = getGameData($getQuestionValues, $getRightAnswer, $getQuestionMessage);
+
+    processGameFlow(GAME_DESCRIPTION, $gameData);
 }

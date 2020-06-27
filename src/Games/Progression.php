@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace BrainGames\Games\Progression;
 
 use function BrainGames\Cli\processGameFlow;
+use function BrainGames\Games\Common\getGameData;
 
-use const BrainGames\Common\{RAND_MIN_NUMBER};
+use const BrainGames\Games\Common\{RAND_MIN_NUMBER};
 
 const RAND_MAX_NUMBER = 10;
 const PROGRESSION_LENGTH = 10;
@@ -22,8 +23,11 @@ MESSAGE;
  */
 function run()
 {
-    $questionValues = function (): array {
-        $progression = getProgression();
+    $getQuestionValues = function (): array {
+        $firstProgressionNumber = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+        $progressionDifference = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+
+        $progression = getProgression($firstProgressionNumber, $progressionDifference);
 
         return [
             'progression' => $progression,
@@ -31,37 +35,37 @@ function run()
         ];
     };
 
-    $rightAnswer = function (array $questionValues): int {
+    $getRightAnswer = function (array $questionValues): int {
         $hiddenValueIndex = $questionValues['hidden_value_index'];
         $rightAnswer = $questionValues['progression'][$hiddenValueIndex];
 
         return $rightAnswer;
     };
 
-    $questionMessage = function ($questionValues): string {
+    $getQuestionMessage = function ($questionValues): string {
         $hiddenValueIndex = $questionValues['hidden_value_index'];
         $questionValues['progression'][$hiddenValueIndex] = '..';
 
         return implode(' ', $questionValues['progression']);
     };
 
-    processGameFlow(GAME_DESCRIPTION, $questionValues, $rightAnswer, $questionMessage);
+    $gameData = getGameData($getQuestionValues, $getRightAnswer, $getQuestionMessage);
+
+    processGameFlow(GAME_DESCRIPTION, $gameData);
 }
 
 /**
  * Get progression
  *
+ * @param int $firstProgressionNumber first progression's number
+ * @param int $progressionDifference  progression's difference
+ *
  * @return array
  */
-function getProgression(): array
+function getProgression(int $firstProgressionNumber, int $progressionDifference): array
 {
-    $firstProgressionNumber = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-    $progression[1] = $firstProgressionNumber;
-    $progressionDifference = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-
-    for ($i = 2; $i <= PROGRESSION_LENGTH; $i += 1) {
-        $progressionValue = $progression[$i - 1] + $progressionDifference;
-        $progression[$i] = $progressionValue;
+    for ($i = 0; $i < PROGRESSION_LENGTH; $i += 1) {
+        $progression[$i] = $firstProgressionNumber + $progressionDifference * $i;
     }
 
     return $progression;
