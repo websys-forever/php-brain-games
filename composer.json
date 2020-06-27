@@ -1,7 +1,7 @@
 {
     "name": "websys-forever/php-project-lvl1",
     "description": "just training project \"Brain games\"",
-    "type": "library",
+    "type": "project",
     "authors": [
         {
             "name": "websys.forever",
