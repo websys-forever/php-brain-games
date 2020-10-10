@@ -47,9 +47,7 @@ function run()
  */
 function isPrime(int $num): bool
 {
-    if ($num < 2
-        || $num % 2 === 0
-    ) {
+    if ($num < 2 || ($num % 2 === 0)) {
         return false;
     }
 
