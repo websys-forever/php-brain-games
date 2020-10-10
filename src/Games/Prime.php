@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace BrainGames\Games\Prime;
 
 use function BrainGames\Cli\processGameFlow;
-use function BrainGames\Games\Common\getGameData;
 
-use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+const RAND_MIN_NUMBER = 1;
+const RAND_MAX_NUMBER = 100;
+const GAME_ROUNDS_COUNT = 3;
 
-const GAME_DESCRIPTION = <<<MESSAGE
-Answer "yes" if given number is prime. Otherwise answer "no".\n
-MESSAGE;
+const GAME_DESCRIPTION = 'Answer "yes" if given number is prime. Otherwise answer "no".';
 
 /**
  * Run CLI application
@@ -20,19 +19,21 @@ MESSAGE;
  */
 function run()
 {
-    $getQuestionNumber = function (): int {
-        return rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+    $getRightAnswer = function (int $num): string {
+        return isPrime($num) ? 'yes' : 'no';
     };
 
-    $getRightAnswer = function (int $questionNumber): string {
-        return isPrime($questionNumber) ? 'yes' : 'no';
+    $getQuestion = function ($num): string {
+        return (string) $num;
     };
 
-    $getQuestionMessage = function ($questionNumber): string {
-        return (string) $questionNumber;
-    };
+    $gameData = [];
+    for ($i = 0; $i < GAME_ROUNDS_COUNT; ++$i) {
+        $num = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
 
-    $gameData = getGameData($getQuestionNumber, $getRightAnswer, $getQuestionMessage);
+        $gameData[$i]['question'] = $getQuestion($num);
+        $gameData[$i]['right_answer'] = $getRightAnswer($num);
+    }
 
     processGameFlow(GAME_DESCRIPTION, $gameData);
 }
@@ -40,24 +41,26 @@ function run()
 /**
  * Check that number is prime
  *
- * @param $number int
+ * @param $num int
  *
  * @return bool
  */
-function isPrime(int $number): bool
+function isPrime(int $num): bool
 {
-    if ($number < 2 || $number % 2 == 0) {
+    if ($num < 2
+        || $num % 2 === 0
+    ) {
         return false;
     }
 
-    if ($number == 2) {
+    if ($num == 2) {
         return true;
     }
 
     $i = 3;
-    $numberSquareRoot = (int) sqrt($number);
+    $numberSquareRoot = (int) sqrt($num);
     while ($i <= $numberSquareRoot) {
-        if ($number % $i == 0) {
+        if ($num % $i == 0) {
             return false;
         }
         $i += 2;

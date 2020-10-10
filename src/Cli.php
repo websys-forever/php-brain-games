@@ -6,42 +6,39 @@ namespace BrainGames\Cli;
 
 use function Cli\{out, prompt};
 
-use const BrainGames\Games\Common\{GAME_STEPS_COUNT, CORRECT_ANSWER_MESSAGE};
-
 /**
  * Process game flow
  *
  * @param $gameDescription string game's description
- * @param $gameData        array game's data (questions messages and right answers)
+ * @param $gameRounds      array  game's data (questions messages and right answers)
  *
  * @return void
  */
-function processGameFlow(string $gameDescription, array $gameData)
+function processGameFlow(string $gameDescription, array $gameRounds)
 {
     out("Welcome to the Brain Games!\n");
-    out($gameDescription);
+    out("{$gameDescription}\n");
 
     $userName = prompt("May I have your name?");
     out("Hello, {$userName}\n");
 
-    $errorAnswer = false;
-    $step = 0;
-    while ($step < GAME_STEPS_COUNT && false === $errorAnswer) {
-        $receivedAnswer = prompt("Question: {$gameData[$step]['question_message']}");
+    $playGameRounds = function (array $gameRounds) use ($userName): string {
+        foreach ($gameRounds as $round) {
+            $receivedAnswer = prompt("Question: {$round['question']}");
 
-        if ($gameData[$step]['right_answer'] == $receivedAnswer) {
-            ++$step;
-
-            out(CORRECT_ANSWER_MESSAGE);
-        } else {
-            $errorAnswer = true;
+            if ($round['right_answer'] == $receivedAnswer) {
+                out("Correct!\n");
+            } else {
+                return <<<MESSAGE
+'{$receivedAnswer}' is wrong answer ;(. 
+Correct answer was '{$round['right_answer']}'.
+Let's try again, {$userName}!\n
+MESSAGE;
+            }
         }
-    }
 
-    $result = $errorAnswer ?
-        "'{$receivedAnswer}' is wrong answer ;(. Correct answer was '{$gameData[$step]['right_answer']}'.
- Let's try again, {$userName}!\n"
-        : "Congratulations, {$userName}!\n";
+        return "Congratulations, {$userName}!\n";
+    };
 
-    out($result);
+    out($playGameRounds($gameRounds));
 }

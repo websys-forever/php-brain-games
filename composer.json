@@ -22,7 +22,6 @@
     "autoload": {
         "files": [
             "src/Cli.php",
-            "src/Games/Common.php",
             "src/Games/Even.php",
             "src/Games/Calc.php",
             "src/Games/Nod.php",

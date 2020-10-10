@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace BrainGames\Games\Calc;
 
 use function BrainGames\Cli\processGameFlow;
-use function BrainGames\Games\Common\{getGameData};
 
-use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+const RAND_MIN_NUMBER = 1;
+const RAND_MAX_NUMBER = 100;
+const GAME_ROUNDS_COUNT = 3;
 
-const GAME_DESCRIPTION = <<<MESSAGE
-What is the result of the expression?\n
-MESSAGE;
+const GAME_DESCRIPTION = 'What is the result of the expression?';
 
 const OPERATIONS = ['+', '-', '*'];
 
@@ -22,31 +21,18 @@ const OPERATIONS = ['+', '-', '*'];
  */
 function run()
 {
-    $getQuestionValues = function (): array {
-        $num1 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-        $num2 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-        $randKey = array_rand(OPERATIONS);
-        $operation = OPERATIONS[$randKey];
-
-        return [
-            'num1' => $num1,
-            'operation' => $operation,
-            'num2' => $num2
-        ];
-    };
-
-    $getRightAnswer = function (array $questionValues): int {
-        switch ($questionValues['operation']) {
+    $getRightAnswer = function (int $num1, int $num2, string $operation): int {
+        switch ($operation) {
             case '+':
-                $result = $questionValues['num1'] + $questionValues['num2'];
+                $result = $num1 + $num2;
 
                 break;
             case '-':
-                $result = $questionValues['num1'] - $questionValues['num2'];
+                $result = $num1 - $num2;
 
                 break;
             case '*':
-                $result = $questionValues['num1'] * $questionValues['num2'];
+                $result = $num1 * $num2;
 
                 break;
         }
@@ -54,11 +40,20 @@ function run()
         return $result;
     };
 
-    $getQuestionMessage = function ($questionValues): string {
-        return implode(' ', $questionValues);
+    $getQuestion = function (int $num1, int $num2, string $operation): string {
+        return "{$num1} $operation {$num2}";
     };
 
-    $gameData = getGameData($getQuestionValues, $getRightAnswer, $getQuestionMessage);
+    $gameData = [];
+    for ($i = 0; $i < GAME_ROUNDS_COUNT; ++$i) {
+        $num1 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+        $num2 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+        $randKey = array_rand(OPERATIONS);
+        $operation = OPERATIONS[$randKey];
+
+        $gameData[$i]['question'] = $getQuestion($num1, $num2, $operation);
+        $gameData[$i]['right_answer'] = $getRightAnswer($num1, $num2, $operation);
+    }
 
     processGameFlow(GAME_DESCRIPTION, $gameData);
 }

@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace BrainGames\Games\Nod;
 
 use function BrainGames\Cli\processGameFlow;
-use function BrainGames\Games\Common\getGameData;
 
-use const BrainGames\Games\Common\{RAND_MIN_NUMBER, RAND_MAX_NUMBER};
+const RAND_MIN_NUMBER = 1;
+const RAND_MAX_NUMBER = 100;
+const GAME_ROUNDS_COUNT = 3;
 
-const GAME_DESCRIPTION = <<<MESSAGE
-Find the greatest common divisor of given numbers.\n
-MESSAGE;
+const GAME_DESCRIPTION = 'Find the greatest common divisor of given numbers.';
 
 /**
  * Run CLI application
@@ -20,22 +19,22 @@ MESSAGE;
  */
 function run()
 {
-    $getQuestionValues = function (): array {
-        return [
-            'num1' => rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER),
-            'num2' => rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER)
-        ];
+    $getRightAnswer = function (int $num1, int $num2): int {
+        return gcd($num1, $num2);
     };
 
-    $getRightAnswer = function (array $questionValues): int {
-        return gcd($questionValues['num1'], $questionValues['num2']);
+    $getQuestion = function (int $num1, int $num2): string {
+        return "{$num1} {$num2}";
     };
 
-    $getQuestionMessage = function ($questionValues): string {
-        return implode(' ', $questionValues);
-    };
+    $gameData = [];
+    for ($i = 0; $i < GAME_ROUNDS_COUNT; ++$i) {
+        $num1 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+        $num2 = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
 
-    $gameData = getGameData($getQuestionValues, $getRightAnswer, $getQuestionMessage);
+        $gameData[$i]['question'] = $getQuestion($num1, $num2);
+        $gameData[$i]['right_answer'] = $getRightAnswer($num1, $num2);
+    }
 
     processGameFlow(GAME_DESCRIPTION, $gameData);
 }
