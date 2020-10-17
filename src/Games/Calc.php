@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Calc;
 
-use function BrainGames\Engine\runGamesEngine;
+use function BrainGames\Engine\runEngine;
 
 use const BrainGames\Engine\GAME_ROUNDS_COUNT;
 
@@ -33,7 +33,7 @@ function run()
         $gameData[$i]['right_answer'] = getRightAnswer($num1, $num2, $operation);
     }
 
-    runGamesEngine(GAME_DESCRIPTION, $gameData);
+    runEngine(GAME_DESCRIPTION, $gameData);
 }
 
 function getRightAnswer(int $num1, int $num2, string $operation): int {

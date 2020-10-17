@@ -14,9 +14,9 @@ const GAME_ROUNDS_COUNT = 3;
  * @param $gameDescription string game's description
  * @param $gameRounds      array  game's data (questions messages and right answers)
  *
- * @return void
+ * @return bool
  */
-function runGamesEngine(string $gameDescription, array $gameRounds)
+function runEngine(string $gameDescription, array $gameRounds): bool
 {
     out("Welcome to the Brain Games!\n");
     out("{$gameDescription}\n");
@@ -27,34 +27,23 @@ function runGamesEngine(string $gameDescription, array $gameRounds)
     foreach ($gameRounds as ['question' => $question, 'right_answer' => $rightAnswer]) {
         $receivedAnswer = prompt("Question: {$question}");
 
-        ['result' => $result, 'message' => $message] = getResult($rightAnswer, $receivedAnswer, $userName);
-
-        out($message);
-
-        if (!$result) {
-            break;
-        }
-    }
-
-    if ($result) {
-        out("Congratulations, {$userName}!\n");
-    }
-}
-
-function getResult($rightAnswer, $receivedAnswer, $userName): array
-{
-    $result = [];
-    if ($rightAnswer == $receivedAnswer) {
-        $result['message'] = "Correct!\n";
-        $result['result']  = true;
-    } else {
-        $result['message'] = <<<MESSAGE
+        if ($rightAnswer == $receivedAnswer) {
+            out("Correct!\n");
+        } else {
+            $message = <<<MESSAGE
 '{$receivedAnswer}' is wrong answer ;(. 
 Correct answer was '{$rightAnswer}'.
 Let's try again, {$userName}!\n
 MESSAGE;
-        $result['result']  = false;
+
+            out($message);
+
+            return false;
+        }
+
     }
 
-    return $result;
+    out("Congratulations, {$userName}!\n");
+
+    return true;
 }

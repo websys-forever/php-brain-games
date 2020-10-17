@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Nod;
 
-use function BrainGames\Engine\runGamesEngine;
+use function BrainGames\Engine\runEngine;
 
 use const BrainGames\Engine\GAME_ROUNDS_COUNT;
 
@@ -29,7 +29,7 @@ function run()
         $gameData[$i]['right_answer'] = gcd($num1, $num2);
     }
 
-    runGamesEngine(GAME_DESCRIPTION, $gameData);
+    runEngine(GAME_DESCRIPTION, $gameData);
 }
 
 /**

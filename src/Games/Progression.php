@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Progression;
 
-use function BrainGames\Engine\runGamesEngine;
+use function BrainGames\Engine\runEngine;
 
 use const BrainGames\Engine\GAME_ROUNDS_COUNT;
 
@@ -35,7 +35,7 @@ function run()
         $gameData[$i]['question'] = implode(' ', $progression);;
     }
 
-    runGamesEngine(GAME_DESCRIPTION, $gameData);
+    runEngine(GAME_DESCRIPTION, $gameData);
 }
 
 /**

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Prime;
 
-use function BrainGames\Engine\runGamesEngine;
+use function BrainGames\Engine\runEngine;
 
 use const BrainGames\Engine\GAME_ROUNDS_COUNT;
 
@@ -28,7 +28,7 @@ function run()
         $gameData[$i]['right_answer'] = isPrime($num) ? 'yes' : 'no';
     }
 
-    runGamesEngine(GAME_DESCRIPTION, $gameData);
+    runEngine(GAME_DESCRIPTION, $gameData);
 }
 
 /**
