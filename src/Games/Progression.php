@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace BrainGames\Games\Progression;
 
-use function BrainGames\Cli\processGameFlow;
+use function BrainGames\Engine\runGamesEngine;
+
+use const BrainGames\Engine\GAME_ROUNDS_COUNT;
 
 const RAND_MIN_NUMBER = 1;
 const RAND_MAX_NUMBER = 10;
 const PROGRESSION_LENGTH = 10;
-const GAME_ROUNDS_COUNT = 3;
 
 const GAME_DESCRIPTION = 'What number is missing in the progression?';
 
@@ -20,16 +21,6 @@ const GAME_DESCRIPTION = 'What number is missing in the progression?';
  */
 function run()
 {
-    $getRightAnswer = function (array $progression, int $hiddenValueIndex): int {
-        return $progression[$hiddenValueIndex];
-    };
-
-    $getQuestion = function (array $progression, int $hiddenValueIndex): string {
-        $progression[$hiddenValueIndex] = '..';
-
-        return implode(' ', $progression);
-    };
-
     $gameData = [];
     for ($i = 0; $i < GAME_ROUNDS_COUNT; ++$i) {
         $firstNumber = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
@@ -38,11 +29,13 @@ function run()
         $progression = getProgression($firstNumber, $progressionDifference);
         $hiddenValueIndex = array_rand($progression);
 
-        $gameData[$i]['question'] = $getQuestion($progression, $hiddenValueIndex);
-        $gameData[$i]['right_answer'] = $getRightAnswer($progression, $hiddenValueIndex);
+        $gameData[$i]['right_answer'] = $progression[$hiddenValueIndex];
+
+        $progression[$hiddenValueIndex] = '..';
+        $gameData[$i]['question'] = implode(' ', $progression);;
     }
 
-    processGameFlow(GAME_DESCRIPTION, $gameData);
+    runGamesEngine(GAME_DESCRIPTION, $gameData);
 }
 
 /**
