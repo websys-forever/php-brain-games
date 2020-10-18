@@ -40,7 +40,7 @@ function run()
  */
 function isPrime(int $num): bool
 {
-    if ($num == 2) {
+    if ($num === 2) {
         return true;
     }
 
@@ -52,7 +52,7 @@ function isPrime(int $num): bool
     $i = 3;
     $numberSquareRoot = (int) sqrt($num);
     while ($i <= $numberSquareRoot) {
-        if ($num % $i == 0) {
+        if ($num % $i === 0) {
             return false;
         }
         $i += 2;
