@@ -24,9 +24,9 @@ function run()
     $gameData = [];
     for ($i = 0; $i < GAME_ROUNDS_COUNT; ++$i) {
         $firstNumber = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
-        $progressionDifference = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
+        $progressionDiff = rand(RAND_MIN_NUMBER, RAND_MAX_NUMBER);
 
-        $progression = getProgression($firstNumber, $progressionDifference);
+        $progression = getProgression($firstNumber, $progressionDiff);
         $hiddenValueIndex = array_rand($progression);
 
         $gameData[$i]['right_answer'] = $progression[$hiddenValueIndex];
@@ -41,16 +41,16 @@ function run()
 /**
  * Get progression
  *
- * @param int $firstNumber           first progression's number
- * @param int $progressionDifference progression's difference
+ * @param int $firstNumber     first progression's number
+ * @param int $progressionDiff progression's difference
  *
  * @return array
  */
-function getProgression(int $firstNumber, int $progressionDifference): array
+function getProgression(int $firstNumber, int $progressionDiff): array
 {
     $progression = [];
     for ($i = 0; $i < PROGRESSION_LENGTH; $i += 1) {
-        $progression[$i] = $firstNumber + $progressionDifference * $i;
+        $progression[$i] = $firstNumber + $progressionDiff * $i;
     }
 
     return $progression;

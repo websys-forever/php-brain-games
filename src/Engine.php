@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace BrainGames\Engine;
 
-use function Cli\{out, prompt};
+use function Cli\out;
+use function Cli\prompt;
 
 const GAME_ROUNDS_COUNT = 3;
 
