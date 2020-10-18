@@ -36,7 +36,8 @@ function run()
     runEngine(GAME_DESCRIPTION, $gameData);
 }
 
-function getRightAnswer(int $num1, int $num2, string $operation): int {
+function getRightAnswer(int $num1, int $num2, string $operation): int
+{
     switch ($operation) {
         case '+':
             $result = $num1 + $num2;
@@ -53,4 +54,4 @@ function getRightAnswer(int $num1, int $num2, string $operation): int {
     }
 
     return $result;
-};
+}

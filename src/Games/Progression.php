@@ -32,7 +32,7 @@ function run()
         $gameData[$i]['right_answer'] = $progression[$hiddenValueIndex];
 
         $progression[$hiddenValueIndex] = '..';
-        $gameData[$i]['question'] = implode(' ', $progression);;
+        $gameData[$i]['question'] = implode(' ', $progression);
     }
 
     runEngine(GAME_DESCRIPTION, $gameData);

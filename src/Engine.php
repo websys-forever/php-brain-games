@@ -40,7 +40,6 @@ MESSAGE;
 
             return false;
         }
-
     }
 
     out("Congratulations, {$userName}!\n");
