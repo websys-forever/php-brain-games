@@ -45,7 +45,7 @@ function isPrime(int $num): bool
     }
 
     $numberSquareRoot = (int) sqrt($num);
-    for ($i = 2; $i <= $numberSquareRoot; $i +=1) {
+    for ($i = 2; $i <= $numberSquareRoot; $i += 1) {
         if ($num % $i === 0) {
             return false;
         }
