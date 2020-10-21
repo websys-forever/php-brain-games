@@ -40,22 +40,15 @@ function run()
  */
 function isPrime(int $num): bool
 {
-    if ($num === 2) {
-        return true;
-    }
-
-    $isEven = $num % 2 === 0;
-    if ($num < 2 || $isEven) {
+    if ($num < 2) {
         return false;
     }
 
-    $i = 3;
     $numberSquareRoot = (int) sqrt($num);
-    while ($i <= $numberSquareRoot) {
+    for ($i = 2; $i <= $numberSquareRoot; $i +=1) {
         if ($num % $i === 0) {
             return false;
         }
-        $i += 2;
     }
 
     return true;

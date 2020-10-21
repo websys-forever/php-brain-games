@@ -12,7 +12,7 @@
         "bin/brain-games",
         "bin/brain-even",
         "bin/brain-calc",
-        "bin/brain-nod",
+        "bin/brain-gcd",
         "bin/brain-progression",
         "bin/brain-prime"
     ],
@@ -27,7 +27,7 @@
             "src/Engine.php",
             "src/Games/Even.php",
             "src/Games/Calc.php",
-            "src/Games/Nod.php",
+            "src/Games/GreatestDivisor.php",
             "src/Games/Progression.php",
             "src/Games/Prime.php"
         ]

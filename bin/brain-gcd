@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use function BrainGames\Games\Nod\run;
+use function BrainGames\Games\GreatestDivisor\run;
 use function cli\out;
 
 $localAutoloadPath = __DIR__ . '/../vendor/autoload.php';

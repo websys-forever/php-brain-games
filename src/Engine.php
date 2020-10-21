@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace BrainGames\Engine;
 
-use function Cli\out;
+use function Cli\line;
 use function Cli\prompt;
 
 const GAME_ROUNDS_COUNT = 3;
@@ -19,31 +19,26 @@ const GAME_ROUNDS_COUNT = 3;
  */
 function runEngine(string $gameDescription, array $gameRounds): bool
 {
-    out("Welcome to the Brain Games!\n");
-    out("{$gameDescription}\n");
+    line("Welcome to the Brain Games!");
+    line("{$gameDescription}");
 
     $userName = prompt("May I have your name?");
-    out("Hello, {$userName}\n");
+    line("Hello, {$userName}");
 
     foreach ($gameRounds as ['question' => $question, 'right_answer' => $rightAnswer]) {
         $receivedAnswer = prompt("Question: {$question}");
 
         if ($rightAnswer == $receivedAnswer) {
-            out("Correct!\n");
+            line("Correct!");
         } else {
-            $message = <<<MESSAGE
-'{$receivedAnswer}' is wrong answer ;(. 
-Correct answer was '{$rightAnswer}'.
-Let's try again, {$userName}!\n
-MESSAGE;
-
-            out($message);
+            line("'{$receivedAnswer}' is wrong answer ;(. Correct answer was '{$rightAnswer}'.");
+            line("Let's try again, {$userName}!");
 
             return false;
         }
     }
 
-    out("Congratulations, {$userName}!\n");
+    line("Congratulations, {$userName}!");
 
     return true;
 }

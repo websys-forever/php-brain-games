@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BrainGames\Games\Nod;
+namespace BrainGames\Games\GreatestDivisor;
 
 use function BrainGames\Engine\runEngine;
 

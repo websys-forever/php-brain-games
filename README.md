@@ -30,11 +30,11 @@ Run games:
     
     [![asciicast](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs.svg)](https://asciinema.org/a/hm65jvTpgGiUNxwx7Ab9OYugs)
         
-3) Game 'Nod'    
+3) Game 'GCD' (Greatest Common Divisor)    
 
-        brain-nod    
+        brain-gcd    
         
-    Game 'Nod' example:    
+    Game 'GCD' example:    
  
     [![asciicast](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh.svg)](https://asciinema.org/a/Qk12TvzaU5BLjdIs5DJUL0Ooh)
             
