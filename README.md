@@ -1,6 +1,6 @@
-# php-project-lvl1
-[![Maintainability](https://api.codeclimate.com/v1/badges/c9fe9f68381488e8ec3f/maintainability)](https://codeclimate.com/github/websys-forever/php-project-lvl1/maintainability) 
-![](https://github.com/websys-forever/php-project-lvl1/workflows/Check%20code/badge.svg)
+# php-brain-games
+[![Maintainability](https://api.codeclimate.com/v1/badges/3cc817cb8eddc4d21aff/maintainability)](https://codeclimate.com/github/websys-forever/php-brain-games/maintainability) 
+![](https://github.com/websys-forever/php-brain-games/workflows/Check%20code/badge.svg)
     
 **just training project "Brain games" (without OOP)**
 
